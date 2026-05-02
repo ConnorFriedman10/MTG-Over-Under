@@ -8,6 +8,7 @@ function App() {
   const [error, setError] = useState('');
 
   const search = async (e) => {
+    //prevents the page from reloading when the form submits
     e.preventDefault();
     if (!query.trim()) return;
 
