@@ -50,23 +50,25 @@ function App() {
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {card1 && (
-        <>
-          <h3>{card1.name}</h3>
-          {card1.image && <img src={card1.image} alt={card1.name} style={{ maxWidth: '300px' }} />}
-          <p>Set: {card1.set}</p>
-          <p>Price: {card1.price}</p>
-        </>
-      )}
+      <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center' }}>
+        {card1 && (
+          <div>
+            <h3>{card1.name}</h3>
+            {card1.image && <img src={card1.image} alt={card1.name} style={{ maxWidth: '300px' }} />}
+            <p>Set: {card1.set}</p>
+            <p>Price: {card1.price}</p>
+          </div>
+        )}
 
-      {card2 && (
-        <>
-          <h3>{card2.name}</h3>
-          {card2.image && <img src={card2.image} alt={card2.name} style={{ maxWidth: '300px' }} />}
-          <p>Set: {card2.set}</p>
-          <p>Price: {card2.price}</p>
-        </>
-      )}
+        {card2 && (
+          <div>
+            <h3>{card2.name}</h3>
+            {card2.image && <img src={card2.image} alt={card2.name} style={{ maxWidth: '300px' }} />}
+            <p>Set: {card2.set}</p>
+            <p>Price: {card2.price}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
