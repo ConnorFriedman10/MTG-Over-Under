@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [query, setQuery] = useState('');
-  const [card, setCard] = useState(null);
+  const [card1, setCard1] = useState(null);
+  const [card2, setCard2] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const fetchRandomCard = async () => {
+  const fetchRandomCard = async (cardset) => {
     setLoading(true);
     setError('');
   
@@ -17,32 +18,53 @@ function App() {
       if (!res.ok) {
         throw new Error('Failed to fetch card');
       }
-      setCard(data); // sets the card to the response from the server
+      cardset(data); // sets the card to the response from the server
 
     } catch (err) {
       setError(err.message);
-      setCard(null);
+      cardset(null);
     } finally {
       setLoading(false);
     }
   }
 
+  const onClickCard = async () => {
+    if (loading) return;
+    fetchRandomCard(setCard1);
+    fetchRandomCard(setCard2);
+  }
+
+  //displays a random card before button is pressed, button just jumbles it if needed
+  useEffect(() => {
+    fetchRandomCard(setCard1);
+    fetchRandomCard(setCard2);
+  }, []);
+
 
   return (
     <div className="App">
       <h1>MTG Over/Under</h1>
-      <button onClick={fetchRandomCard} disabled={loading}>
+      <button onClick={onClickCard} disabled={loading}>
         {loading ? 'Loading...' : 'Get Random Card'}
       </button>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {card && (
+      {card1 && (
         <>
-          <h3>{card.name}</h3>
-          {card.image && <img src={card.image} alt={card.name} style={{ maxWidth: '300px' }} />}
-          <p>Set: {card.set}</p>
-          <p>Artist: {card.artist}</p>
+          <h3>{card1.name}</h3>
+          {card1.image && <img src={card1.image} alt={card1.name} style={{ maxWidth: '300px' }} />}
+          <p>Set: {card1.set}</p>
+          <p>Price: {card1.price}</p>
+        </>
+      )}
+
+      {card2 && (
+        <>
+          <h3>{card2.name}</h3>
+          {card2.image && <img src={card2.image} alt={card2.name} style={{ maxWidth: '300px' }} />}
+          <p>Set: {card2.set}</p>
+          <p>Price: {card2.price}</p>
         </>
       )}
     </div>

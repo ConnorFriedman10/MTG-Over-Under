@@ -38,7 +38,8 @@ app.get('/api/cards/random', async (req, res) => {
       set: data.set_name,
       image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
       artist: data.artist,
-      scryfallUri: data.scryfall_uri
+      scryfallUri: data.scryfall_uri,
+      price: data.prices?.usd || 'N/A'
     };
 
     res.json(card);
