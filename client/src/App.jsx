@@ -7,30 +7,6 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const search = async (e) => {
-    //prevents the page from reloading when the form submits
-    e.preventDefault();
-    if (!query.trim()) return;
-
-    setLoading(true);
-    setError('');
-
-    try {
-      const res = await fetch(`http://localhost:3000/api/cards/search?q=${encodeURIComponent(query)}`);
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.details || data.error || 'Search failed');
-      }
-
-      setCards(data.cards || []);
-    } catch (err) {
-      setError(err.message);
-      setCards([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="App">
