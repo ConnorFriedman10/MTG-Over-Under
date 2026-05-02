@@ -17,32 +17,35 @@ app.use((req, res, next) => {
 
 app.get('/api/cards/random', async (req, res) => {
   try {
-    const url = `https://api.scryfall.com/cards/random`;
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'MTG-Over-Under/1.0',
-        'Accept': 'application/json'
+    while (true) {
+      const response = await fetch('https://api.scryfall.com/cards/random', {
+        headers: {
+          'User-Agent': 'MTG-Over-Under/1.0',
+          'Accept': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return res.status(response.status).json(data);
       }
-    });
 
-    const data = await response.json();
+      const usdPrice = data.prices?.usd;
+      if (!usdPrice) continue;
 
-    if (!response.ok) {
-      return res.status(response.status).json(data);
+      const card = {
+        id: data.id,
+        name: data.name,
+        set: data.set_name,
+        image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
+        artist: data.artist,
+        scryfallUri: data.scryfall_uri,
+        price: usdPrice
+      };
+
+      return res.json(card);
     }
-
-    // Return only fields your UI needs
-    const card = {
-      id: data.id,
-      name: data.name,
-      set: data.set_name,
-      image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
-      artist: data.artist,
-      scryfallUri: data.scryfall_uri,
-      price: data.prices?.usd || 'N/A'
-    };
-
-    res.json(card);
   } catch (err) {
     res.status(500).json({ error: 'Server error while fetching Scryfall.' });
   }
