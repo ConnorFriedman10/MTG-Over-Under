@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import EndGamePopup from './EndGamePopup.jsx'
 
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
@@ -12,6 +13,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [maxScore, setMaxScore] = useState(localStorage.getItem('maxScore') || 0);
   const [revealedPrice, setRevealedPrice] = useState('???');
+  const [isOpen, setIsOpen] = useState(false);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const formatPrice = (price) => Number(price).toFixed(2);
@@ -110,6 +112,7 @@ function App() {
         setCard1(card2);
         setCard2(nextRightCard);
       } else {
+        setIsOpen(true);
         const [nextLeftCard, nextRightCard] = upcomingCards;
         setScore(0);
         setCard1(nextLeftCard);
@@ -128,6 +131,11 @@ function App() {
     finally {
       setLoading(false);
     }
+  };
+
+  const handleConfirm = () => {
+    console.log("Confirmed!");
+    setIsOpen(false);
   };
 
   return (
@@ -170,6 +178,12 @@ function App() {
             <p className="card-price-right">Price: {revealedPrice}</p>
           </div>
         )}
+
+        <EndGamePopup isOpen={isOpen} onClose={() => setIsOpen(false)} title="Confirm Action">
+          <p>Are you sure you want to proceed?</p>
+          <button onClick={() => setIsOpen(false)}>Cancel</button>
+          <button onClick={handleConfirm}>Confirm</button>
+        </EndGamePopup>
       </div>
     </div>
   );
