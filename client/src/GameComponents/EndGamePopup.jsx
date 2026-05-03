@@ -16,7 +16,7 @@ function EndGamePopup({ isOpen, onClose, title, children }) {
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "white", borderRadius: "8px",
+          background: "gray", borderRadius: "8px",
           padding: "24px", minWidth: "300px", maxWidth: "500px",
         }}
       >

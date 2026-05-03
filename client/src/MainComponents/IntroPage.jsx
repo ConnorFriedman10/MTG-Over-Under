@@ -1,5 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import App from './GameComponents/App.jsx';
+import App from '../GameComponents/App.jsx';
 
 function IntroPage() {
     const navigate = useNavigate();
