@@ -131,43 +131,43 @@ function App() {
   };
 
   return (
-    <div className="App min-h-screen bg-slate-950 px-6 py-10 text-slate-100">
-      <h1 className="mb-2 text-5xl font-bold tracking-tight">MTG Over/Under</h1>
-      <div className="mb-10 flex items-center justify-center gap-8">
-        <h3 className="text-2xl font-semibold text-emerald-300">Score: {score}</h3>
-        <h3 className="text-2xl font-semibold text-slate-400">Best: {maxScore}</h3>
+    <div className="app-root">
+      <h1 className="app-title">MTG Over/Under</h1>
+      <div className="score-bar">
+        <h3 className="score-current">Score: {score}</h3>
+        <h3 className="score-best">Best: {maxScore}</h3>
       </div>
 
-      {error && <p className="mb-6 text-lg text-red-400">{error}</p>}
+      {error && <p className="error-msg">{error}</p>}
 
-      <div className="flex flex-col justify-center gap-8 lg:flex-row">
+      <div className="card-grid">
         {card1 && (
-          <div className="mx-auto w-full max-w-sm rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl shadow-slate-950/40">
-            <h3 className="mb-4 text-3xl font-bold text-slate-50">{card1.name}</h3>
+          <div className="card-panel">
+            <h3 className="card-name">{card1.name}</h3>
             <button
-              className="w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 transition hover:border-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+              className="card-button-left"
               onClick={() => cardHandler(card1, card2)}
               disabled={loading}
             >
-              {card1.image && <img src={card1.image} alt={card1.name} className="mx-auto max-h-[420px] w-full object-contain" />}
+              {card1.image && <img src={card1.image} alt={card1.name} className="card-image" />}
             </button>
-            <p className="mt-4 text-lg text-slate-300">Set: {card1.set}</p>
-            <p className="mt-2 text-3xl font-bold text-emerald-300">Price: {formatPrice(card1.price)}</p>
+            <p className="card-set">Set: {card1.set}</p>
+            <p className="card-price-left">Price: {formatPrice(card1.price)}</p>
           </div>
         )}
 
         {card2 && (
-          <div className="mx-auto w-full max-w-sm rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl shadow-slate-950/40">
-            <h3 className="mb-4 text-3xl font-bold text-slate-50">{card2.name}</h3>
+          <div className="card-panel">
+            <h3 className="card-name">{card2.name}</h3>
             <button
-              className="w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 transition hover:border-amber-400 disabled:cursor-not-allowed disabled:opacity-60"
+              className="card-button-right"
               onClick={() => cardHandler(card2, card1)}
               disabled={loading}
             >
-              {card2.image && <img src={card2.image} alt={card2.name} className="mx-auto max-h-[420px] w-full object-contain" />}
+              {card2.image && <img src={card2.image} alt={card2.name} className="card-image" />}
             </button>
-            <p className="mt-4 text-lg text-slate-300">Set: {card2.set}</p>
-            <p className="mt-2 text-3xl font-bold text-amber-300 tabular-nums">Price: {revealedPrice}</p>
+            <p className="card-set">Set: {card2.set}</p>
+            <p className="card-price-right">Price: {revealedPrice}</p>
           </div>
         )}
       </div>

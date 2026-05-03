@@ -1,0 +1,59 @@
+.app-root {
+  @apply min-h-screen bg-slate-950 px-6 py-10 text-slate-100;
+}
+
+.app-title {
+  @apply mb-2 text-5xl font-bold tracking-tight;
+}
+
+.score-bar {
+  @apply mb-10 flex items-center justify-center gap-8;
+}
+
+.score-current {
+  @apply text-2xl font-semibold text-emerald-300;
+}
+
+.score-best {
+  @apply text-2xl font-semibold text-slate-400;
+}
+
+.error-msg {
+  @apply mb-6 text-lg text-red-400;
+}
+
+.card-grid {
+  @apply flex flex-col justify-center gap-8 lg:flex-row;
+}
+
+.card-panel {
+  @apply mx-auto w-full max-w-sm rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl shadow-slate-950/40;
+}
+
+.card-name {
+  @apply mb-4 text-3xl font-bold text-slate-50;
+}
+
+.card-button-left {
+  @apply w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 transition hover:border-emerald-400 disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+.card-button-right {
+  @apply w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 transition hover:border-amber-400 disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+.card-image {
+  @apply mx-auto max-h-[420px] w-full object-contain;
+}
+
+.card-set {
+  @apply mt-4 text-lg text-slate-300;
+}
+
+.card-price-left {
+  @apply mt-2 text-3xl font-bold text-emerald-300;
+}
+
+.card-price-right {
+  @apply mt-2 text-3xl font-bold text-amber-300 tabular-nums;
+}
