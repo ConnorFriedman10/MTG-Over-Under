@@ -3,6 +3,7 @@ import App from './App.jsx';
 
 function IntroPage() {
     const navigate = useNavigate();
+    
 
     return (
         <Routes>
