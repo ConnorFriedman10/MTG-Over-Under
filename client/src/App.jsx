@@ -10,10 +10,10 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [score, setScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(localStorage.getItem('maxScore') || 0);
   const [revealedPrice, setRevealedPrice] = useState('???');
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
   const formatPrice = (price) => Number(price).toFixed(2);
 
   useEffect(() => {
@@ -114,6 +114,10 @@ function App() {
         setScore(0);
         setCard1(nextLeftCard);
         setCard2(nextRightCard);
+        if (score > maxScore) {
+          localStorage.setItem('maxScore', Math.max(score, maxScore));
+          setMaxScore(score);
+        }
       }
 
       setRevealedPrice('???');
@@ -129,7 +133,10 @@ function App() {
   return (
     <div className="App min-h-screen bg-slate-950 px-6 py-10 text-slate-100">
       <h1 className="mb-2 text-5xl font-bold tracking-tight">MTG Over/Under</h1>
-      <h3 className="mb-10 text-2xl font-semibold text-emerald-300">Score: {score}</h3>
+      <div className="mb-10 flex items-center justify-center gap-8">
+        <h3 className="text-2xl font-semibold text-emerald-300">Score: {score}</h3>
+        <h3 className="text-2xl font-semibold text-slate-400">Best: {maxScore}</h3>
+      </div>
 
       {error && <p className="mb-6 text-lg text-red-400">{error}</p>}
 
