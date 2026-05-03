@@ -16,6 +16,10 @@ function App() {
 
   const formatPrice = (price) => Number(price).toFixed(2);
 
+  useEffect(() => {
+    loadInitialCards();
+  }, []);
+
   const fetchRandomCard = async () => {
     const res = await fetch('http://localhost:3000/api/cards/random');
     const data = await res.json();
@@ -59,6 +63,7 @@ function App() {
   };
 
   const loadInitialCards = async () => {
+    console.log('Loading initial cards...');
     setLoading(true);
     setError('');
 
@@ -79,10 +84,6 @@ function App() {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    loadInitialCards();
-  }, []);
 
   const cardHandler = async (clickedCard, otherCard) => {
     if (loading || !card1 || !card2) {
