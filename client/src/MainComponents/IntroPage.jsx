@@ -8,11 +8,15 @@ function HomePage() {
   const navigate = useNavigate();
   const [scores, setScores] = useState([]);
   const [loadingScores, setLoadingScores] = useState(true);
+  const [scoresError, setScoresError] = useState('');
   
   useEffect(() => {
     getTopScores()
       .then(setScores)
-      .catch(() => {})
+      .catch((err) => {
+        console.error('Failed to load leaderboard:', err);
+        setScoresError('Could not load scores right now.');
+      })
       .finally(() => setLoadingScores(false));
   }, []);
 
@@ -27,6 +31,8 @@ function HomePage() {
         <h2 className="leaderboard-title">Top 50 Scores</h2>
         {loadingScores ? (
           <p className="leaderboard-status">Loading scores...</p>
+        ) : scoresError ? (
+          <p className="leaderboard-status">{scoresError}</p>
         ) : scores.length === 0 ? (
           <p className="leaderboard-status">No scores yet. Be the first!</p>
         ) : (
