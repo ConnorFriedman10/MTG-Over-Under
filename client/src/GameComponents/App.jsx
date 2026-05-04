@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import EndGamePopup from './EndGamePopup.jsx'
+import { isTopScore as checkIsTopScore, submitScore } from '../leaderboard.js'
 
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
@@ -11,9 +12,11 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [score, setScore] = useState(0);
+  const [finalScore, setFinalScore] = useState(0);
   const [maxScore, setMaxScore] = useState(localStorage.getItem('maxScore') || 0);
   const [revealedPrice, setRevealedPrice] = useState('???');
   const [isOpen, setIsOpen] = useState(false);
+  const [isTopScoreQualified, setIsTopScoreQualified] = useState(false);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const formatPrice = (price) => Number(price).toFixed(2);
@@ -88,7 +91,7 @@ function App() {
   };
 
   const cardHandler = async (clickedCard, otherCard) => {
-    if (loading || !card1 || !card2) {
+    if (loading || !card1 || !card2 || isOpen) {
       return;
     }
 
@@ -98,44 +101,44 @@ function App() {
       const clickedPrice = Number(clickedCard.price);
       const otherPrice = Number(otherCard.price);
       const pickedCorrectly = clickedPrice >= otherPrice;
-      const upcomingCardsPromise = pickedCorrectly
-        ? Promise.all([fetchRandomCard()])
-        : Promise.all([fetchRandomCard(), fetchRandomCard()]);
+      const nextCardPromise = pickedCorrectly ? fetchRandomCard() : null;
 
       await revealPrice(card2.price);
-      const upcomingCards = await upcomingCardsPromise;
       await delay(PRICE_REVEAL_PAUSE_MS);
 
       if (pickedCorrectly) {
-        const [nextRightCard] = upcomingCards;
+        const nextCard = await nextCardPromise;
         setScore((currentScore) => currentScore + 1);
         setCard1(card2);
-        setCard2(nextRightCard);
+        setCard2(nextCard);
+        setRevealedPrice('???');
       } else {
-        setIsOpen(true);
-        const [nextLeftCard, nextRightCard] = upcomingCards;
-        setScore(0);
-        setCard1(nextLeftCard);
-        setCard2(nextRightCard);
         if (score > maxScore) {
-          localStorage.setItem('maxScore', Math.max(score, maxScore));
+          localStorage.setItem('maxScore', score);
           setMaxScore(score);
         }
+        const qualified = await checkIsTopScore(score).catch(() => false);
+        setFinalScore(score);
+        setIsTopScoreQualified(qualified);
+        setScore(0);
+        setIsOpen(true);
       }
 
-      setRevealedPrice('???');
       setError('');
     } catch (err) {
       setError(err.message);
-    }
-    finally {
+    } finally {
       setLoading(false);
     }
   };
 
-  const handleConfirm = () => {
-    console.log("Confirmed!");
+  const handleRestart = () => {
     setIsOpen(false);
+    loadInitialCards();
+  };
+
+  const handleSubmitScore = async (name, score) => {
+    await submitScore(name, score);
   };
 
   return (
@@ -179,11 +182,14 @@ function App() {
           </div>
         )}
 
-        <EndGamePopup isOpen={isOpen} onClose={() => setIsOpen(false)} title="Confirm Action">
-          <p>Are you sure you want to proceed?</p>
-          <button onClick={() => setIsOpen(false)}>Cancel</button>
-          <button onClick={handleConfirm}>Confirm</button>
-        </EndGamePopup>
+        <EndGamePopup
+          isOpen={isOpen}
+          title="Game Over"
+          finalScore={finalScore}
+          isTopScore={isTopScoreQualified}
+          onSubmitScore={handleSubmitScore}
+          onRestart={handleRestart}
+        />
       </div>
     </div>
   );

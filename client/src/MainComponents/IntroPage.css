@@ -1,0 +1,59 @@
+.leaderboard {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.leaderboard-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.leaderboard-status {
+  text-align: center;
+  opacity: 0.7;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.leaderboard-row--top {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.leaderboard-rank {
+  width: 2.5rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.leaderboard-name {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard-score {
+  font-weight: bold;
+  flex-shrink: 0;
+}
