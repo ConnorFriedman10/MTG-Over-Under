@@ -27,6 +27,27 @@ const fetchCardFromScryfall = async () => {
   };
 };
 
+
+const fetchSpecificCardArt = async (q) => {
+    const url = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(q)}`;
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'MTG-Over-Under/1.0',
+        'Accept': 'application/json'
+      }
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(response.status).json(data);
+    }
+
+  return {
+    image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal
+  };
+};
+
 const refillPool = () => {
   const needed = POOL_SIZE - cardPool.length;
   for (let i = 0; i < needed; i++) {

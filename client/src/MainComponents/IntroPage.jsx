@@ -8,7 +8,7 @@ function HomePage() {
   const navigate = useNavigate();
   const [scores, setScores] = useState([]);
   const [loadingScores, setLoadingScores] = useState(true);
-
+  
   useEffect(() => {
     getTopScores()
       .then(setScores)
