@@ -19,8 +19,8 @@ export async function isTopScore(score) {
   return score > top[top.length - 1].score;
 }
 
-export async function submitScore(name, score) {
-  await addDoc(leaderboardCol(), { name, score, timestamp: serverTimestamp() });
+export async function submitScore(name, score, avatarUrl = null) {
+  await addDoc(leaderboardCol(), { name, score, avatarUrl, timestamp: serverTimestamp() });
 
   // Prune anything beyond top 50
   const q = query(leaderboardCol(), orderBy('score', 'desc'));

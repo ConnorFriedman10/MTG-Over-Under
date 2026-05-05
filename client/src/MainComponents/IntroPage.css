@@ -38,6 +38,14 @@
   background: rgba(212, 175, 55, 0.15);
 }
 
+.leaderboard-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .leaderboard-rank {
   width: 2.5rem;
   font-size: 0.85rem;

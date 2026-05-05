@@ -137,8 +137,8 @@ function App() {
     loadInitialCards();
   };
 
-  const handleSubmitScore = async (name, score) => {
-    await submitScore(name, score);
+  const handleSubmitScore = async (name, score, avatarUrl) => {
+    await submitScore(name, score, avatarUrl);
   };
 
   return (

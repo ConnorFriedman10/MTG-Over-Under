@@ -4,6 +4,16 @@ import App from '../GameComponents/App.jsx';
 import { getTopScores } from '../leaderboard.js';
 import './IntroPage.css';
 
+const MANA_PIPS = [
+  'https://svgs.scryfall.io/card-symbols/W.svg',
+  'https://svgs.scryfall.io/card-symbols/U.svg',
+  'https://svgs.scryfall.io/card-symbols/B.svg',
+  'https://svgs.scryfall.io/card-symbols/R.svg',
+  'https://svgs.scryfall.io/card-symbols/G.svg',
+];
+
+const fallbackAvatar = (id) => MANA_PIPS[id.charCodeAt(0) % MANA_PIPS.length];
+
 function HomePage() {
   const navigate = useNavigate();
   const [scores, setScores] = useState([]);
@@ -39,6 +49,7 @@ function HomePage() {
           <ol className="leaderboard-list">
             {scores.map((entry, i) => (
               <li key={entry.id} className={`leaderboard-row ${i < 3 ? 'leaderboard-row--top' : ''}`}>
+                <img src={entry.avatarUrl || fallbackAvatar(entry.id)} alt={`${entry.name}'s avatar`} className="leaderboard-avatar" />
                 <span className="leaderboard-rank">#{i + 1}</span>
                 <span className="leaderboard-name">{entry.name}</span>
                 <span className="leaderboard-score">{entry.score}</span>
