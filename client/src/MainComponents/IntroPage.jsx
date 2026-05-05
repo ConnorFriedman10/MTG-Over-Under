@@ -80,7 +80,11 @@ function HomePage() {
             <h3 className="info-title">How to Play</h3>
             <p className="info-body">Guess which of the two cards is more expensive, guess right and continue, guess wrong and you lose!</p>
           </div>
-          <div className="info-box w-40 min-h-36 p-4" />
+          <div className="info-box w-40 min-h-36 p-4">
+            <h3 className="info-title">Your art here!</h3>
+            <p className="info-body">Submit your art to ___! New winners chosen every week</p>
+          </div>
+
         </div>
 
       </main>
