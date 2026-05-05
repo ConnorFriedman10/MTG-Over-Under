@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import App from '../GameComponents/App.jsx';
 import { getTopScores } from '../leaderboard.js';
+import overUnderLogo from '../assets/finaloverunderlogo.png';
 import './IntroPage.css';
 
 const MANA_PIPS = [
@@ -58,21 +59,23 @@ function HomePage() {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col justify-between py-4">
+      <main className="flex-1 flex flex-col items-center justify-center gap-10 py-8">
 
         {/* Logo + MTG badge */}
-        <div className="flex items-end gap-0 pt-12">
-          <div className="logo-box w-80 shrink-0 flex items-center justify-center" />
+        <div className="flex items-end">
+          <div className="logo-box w-64 shrink-0">
+            <div className="logo-box-inner">
+              <img src={overUnderLogo} alt="Over/Under logo" />
+            </div>
+          </div>
           <div className="mtg-badge-box w-44 shrink-0 flex items-center justify-center">
             <span className="mtg-text">MTG</span>
           </div>
         </div>
 
-        <div>
-          <button onClick={() => navigate('/game')} className="start-btn">
-            Start Playing
-          </button>
-        </div>
+        <button onClick={() => navigate('/game')} className="start-btn">
+          Start Playing
+        </button>
 
         {/* Info panels */}
         <div className="flex gap-4">
@@ -84,7 +87,6 @@ function HomePage() {
             <h3 className="info-title">Your art here!</h3>
             <p className="info-body">Submit your art to ___! New winners chosen every week</p>
           </div>
-
         </div>
 
       </main>

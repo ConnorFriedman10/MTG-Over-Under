@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import EndGamePopup from './EndGamePopup.jsx'
 import { isTopScore as checkIsTopScore, submitScore } from '../leaderboard.js'
-import heroLogo from '../assets/hero.png'
+import heroLogo from '../assets/finaloverunderlogo.png'
 
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
@@ -146,7 +146,9 @@ function App() {
     <div className="app-root">
       <div className="app-header">
         <div className="app-logo-panel">
-          <img src={heroLogo} alt="MTG Over/Under" className="app-logo-img" />
+          <div className="app-logo-inner">
+            <img src={heroLogo} alt="MTG Over/Under" className="app-logo-img" />
+          </div>
         </div>
         <div className="app-score-panel">
           <span className="app-score-current">Score: {score}</span>
