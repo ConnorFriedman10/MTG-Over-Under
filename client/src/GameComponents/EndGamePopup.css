@@ -1,197 +1,237 @@
+/* ============================================
+   END GAME POPUP — paper pinned on cork board
+   ============================================ */
+
 .endgame-popup-overlay {
-	position: fixed;
-	inset: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: rgba(0, 0, 0, 0.6);
-	z-index: 1000;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
 }
 
+/* Tape strips on the popup card */
+.endgame-popup-card::before,
+.endgame-popup-card::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  background: rgba(200, 188, 158, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+
+.endgame-popup-card::before {
+  top: -10px;
+  left: 20px;
+  transform: rotate(-2deg);
+}
+
+.endgame-popup-card::after {
+  top: -9px;
+  right: 20px;
+  transform: rotate(2deg);
+}
+
+/* Paper card */
 .endgame-popup-card {
-	width: 340px;
-	padding: 28px 28px 24px;
-	text-align: center;
-	background: #020617;
-	color: #f3f4f6;
-	border-radius: 20px;
-	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 8px;
+  width: 360px;
+  padding: 2rem 1.75rem 1.75rem;
+  text-align: center;
+  background: white;
+  color: black;
+  position: relative;
+  box-shadow: 3px 5px 0 rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .endgame-popup-card h2 {
-	color: #f3f4f6;
-	margin: 0;
+  font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  font-size: 2.8rem;
+  letter-spacing: 0.1em;
+  color: black;
+  margin: 0;
 }
 
 .endgame-popup-score {
-	font-size: 1.2em;
-	margin: 0;
-	color: #f3f4f6;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #1a1a1a;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .endgame-popup-congrats {
-	font-weight: bold;
-	margin: 0 0 4px;
-	color: #f3f4f6;
+  font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.07em;
+  color: black;
+  margin: 0 0 2px;
 }
 
 .endgame-popup-form-wrap {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 10px;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
-
+/* Avatar search */
 .endgame-popup-avatar-search-wrap {
-	position: relative;
-	width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .endgame-popup-input {
-	box-sizing: border-box;
-	width: 100%;
-	padding: 8px 12px;
-	border: 2px solid #4b5563;
-	border-radius: 6px;
-	background: #0f172a;
-	color: #f3f4f6;
-	font-size: 1em;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid black;
+  border-radius: 0;
+  background: white;
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88em;
 }
 
 .endgame-popup-input::placeholder {
-	color: #6b7280;
+  color: #999;
+}
+
+.endgame-popup-input:focus {
+  outline: none;
+  border-color: #f5c518;
 }
 
 .endgame-popup-name-input {
-	text-align: center;
+  text-align: center;
 }
 
+/* Dropdown */
 .endgame-popup-dropdown {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	right: 0;
-	max-height: 220px;
-	overflow-y: auto;
-	background: #0f172a;
-	border: 1px solid #4b5563;
-	border-radius: 4px;
-	z-index: 10;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 210px;
+  overflow-y: auto;
+  background: white;
+  border: 2px solid black;
+  border-top: none;
+  z-index: 10;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.2);
 }
 
 .endgame-popup-dropdown-item {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	padding: 6px 10px;
-	cursor: pointer;
-	color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: black;
+  font-family: 'Courier New', monospace;
 }
 
 .endgame-popup-dropdown-item:hover {
-	background: #1e293b;
+  background: #fef3a2;
 }
 
 .endgame-popup-dropdown-item img {
-	width: 56px;
-	height: 40px;
-	object-fit: cover;
-	border-radius: 3px;
-	flex-shrink: 0;
+  width: 56px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
 .endgame-popup-dropdown-item span {
-	font-size: 0.85em;
-	text-align: left;
+  font-size: 0.82em;
+  text-align: left;
 }
 
-/* Always-visible art circle */
+/* Avatar circle */
 .endgame-popup-avatar-circle-wrap {
-	display: flex;
-	justify-content: center;
-	margin: 4px 0;
+  display: flex;
+  justify-content: center;
+  margin: 4px 0;
 }
 
 .endgame-popup-avatar-circle {
-	width: 140px;
-	height: 140px;
-	border-radius: 50%;
-	overflow: hidden;
-	border: 3px solid #4b5563;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #0f172a;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f0e8;
 }
 
 .endgame-popup-avatar-circle img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .endgame-popup-avatar-placeholder {
-	color: #6b7280;
-	font-size: 0.95em;
+  color: #999;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
 }
 
-/* Save / Skip buttons */
+/* Actions row */
 .endgame-popup-actions {
-	display: flex;
-	gap: 10px;
-	justify-content: center;
-	width: 100%;
-	margin-top: 4px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Buttons */
+.endgame-popup-save-btn,
+.endgame-popup-skip-btn,
+.endgame-popup-play-again {
+  padding: 10px 0;
+  border: 2px solid black;
+  border-radius: 0;
+  background: white;
+  color: black;
+  font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+  transition: background 0.08s;
 }
 
 .endgame-popup-save-btn,
 .endgame-popup-skip-btn {
-	flex: 1;
-	padding: 10px 0;
-	border: 2px solid #4b5563;
-	border-radius: 6px;
-	background: #020617;
-	color: #f3f4f6;
-	font-size: 1em;
-	cursor: pointer;
-	transition: border-color 0.15s, background 0.15s;
-}
-
-.endgame-popup-save-btn:hover:not(:disabled) {
-	border-color: #9ca3af;
-	background: #0f172a;
-}
-
-.endgame-popup-skip-btn:hover {
-	border-color: #9ca3af;
-	background: #0f172a;
-}
-
-.endgame-popup-save-btn:disabled {
-	opacity: 0.4;
-	cursor: default;
+  flex: 1;
 }
 
 .endgame-popup-play-again {
-	margin-top: 8px;
-	padding: 10px 24px;
-	border: 2px solid #4b5563;
-	border-radius: 6px;
-	background: #020617;
-	color: #f3f4f6;
-	font-size: 1em;
-	cursor: pointer;
-	transition: border-color 0.15s, background 0.15s;
+  width: 100%;
+  margin-top: 4px;
 }
 
+.endgame-popup-save-btn:hover:not(:disabled),
+.endgame-popup-skip-btn:hover,
 .endgame-popup-play-again:hover {
-	border-color: #9ca3af;
-	background: #0f172a;
+  background: #f5c518;
+}
+
+.endgame-popup-save-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
 }

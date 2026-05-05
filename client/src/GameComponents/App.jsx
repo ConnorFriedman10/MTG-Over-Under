@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import EndGamePopup from './EndGamePopup.jsx'
 import { isTopScore as checkIsTopScore, submitScore } from '../leaderboard.js'
+import heroLogo from '../assets/hero.png'
 
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
@@ -143,10 +144,14 @@ function App() {
 
   return (
     <div className="app-root">
-      <h1 className="app-title">MTG Over/Under</h1>
-      <div className="score-bar">
-        <h3 className="score-current">Score: {score}</h3>
-        <h3 className="score-best">Best: {maxScore}</h3>
+      <div className="app-header">
+        <div className="app-logo-panel">
+          <img src={heroLogo} alt="MTG Over/Under" className="app-logo-img" />
+        </div>
+        <div className="app-score-panel">
+          <span className="app-score-current">Score: {score}</span>
+          <span className="app-score-best">Best: {maxScore}</span>
+        </div>
       </div>
 
       {error && <p className="error-msg">{error}</p>}
@@ -163,7 +168,7 @@ function App() {
               {card1.image && <img src={card1.image} alt={card1.name} className="card-image" />}
             </button>
             <p className="card-set">Set: {card1.set}</p>
-            <p className="card-price-left">Price: {formatPrice(card1.price)}</p>
+            <p className="card-price-left">$ {formatPrice(card1.price)}</p>
           </div>
         )}
 
@@ -178,7 +183,7 @@ function App() {
               {card2.image && <img src={card2.image} alt={card2.name} className="card-image" />}
             </button>
             <p className="card-set">Set: {card2.set}</p>
-            <p className="card-price-right">Price: {revealedPrice}</p>
+            <p className="card-price-right">$ {revealedPrice}</p>
           </div>
         )}
 

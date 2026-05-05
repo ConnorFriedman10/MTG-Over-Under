@@ -1,61 +1,204 @@
-@reference "../index.css";
+/* ============================================
+   GAME PAGE — cork bulletin board aesthetic
+   ============================================ */
 
+/* Tape strip mixin — shared across pinned elements */
+.app-logo-panel::before,
+.app-logo-panel::after,
+.app-score-panel::before,
+.card-panel::before,
+.card-panel::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  background: rgba(200, 188, 158, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
+
+/* ---- Root ---- */
 .app-root {
-  @apply min-h-screen bg-slate-950 px-6 py-10 text-slate-100;
+  min-height: 100vh;
+  padding: 1.5rem 2rem 2.5rem;
 }
 
-.app-title {
-  @apply mb-2 text-5xl font-bold tracking-tight;
+/* ---- Header row ---- */
+.app-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
-.score-bar {
-  @apply mb-10 flex items-center justify-center gap-8;
+/* ---- Logo panel ---- */
+.app-logo-panel {
+  background: white;
+  border: 2px solid black;
+  position: relative;
+  padding: 0.5rem 1.25rem;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  min-height: 64px;
 }
 
-.score-current {
-  @apply text-2xl font-semibold text-emerald-300;
+.app-logo-panel::before {
+  top: -10px;
+  left: 20px;
+  transform: rotate(-3deg);
 }
 
-.score-best {
-  @apply text-2xl font-semibold text-slate-400;
+.app-logo-panel::after {
+  top: -9px;
+  right: 24px;
+  transform: rotate(2deg);
 }
 
+.app-logo-img {
+  max-height: 52px;
+  width: auto;
+  display: block;
+}
+
+/* ---- Score panel ---- */
+.app-score-panel {
+  background: white;
+  border: 2px solid black;
+  position: relative;
+  padding: 0.45rem 1.4rem;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.18);
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  transform: rotate(0.4deg);
+}
+
+.app-score-panel::before {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+.app-score-current {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: #1a6b2a;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.app-score-best {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ---- Error message ---- */
 .error-msg {
-  @apply mb-6 text-lg text-red-400;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  color: #b91c1c;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
+/* ---- Card grid ---- */
 .card-grid {
-  @apply flex flex-col justify-center gap-8 lg:flex-row;
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
+/* ---- Card panels — paper pinned to cork ---- */
 .card-panel {
-  @apply mx-auto w-full max-w-sm rounded-3xl border border-slate-800 bg-slate-900/80 p-6 shadow-2xl shadow-slate-950/40;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding: 1.75rem 1.25rem 1.25rem;
+  box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.16);
+  width: 320px;
+  max-width: 100%;
+  text-align: center;
 }
 
+.card-panel::before {
+  top: -10px;
+  left: 18px;
+  transform: rotate(-2deg);
+}
+
+.card-panel::after {
+  top: -9px;
+  right: 18px;
+  transform: rotate(2.5deg);
+}
+
+/* ---- Card name ---- */
 .card-name {
-  @apply mb-4 text-3xl font-bold text-slate-50;
+  font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  font-size: 1.5rem;
+  color: black;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
 }
 
-.card-button-left {
-  @apply w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 transition hover:border-emerald-400 disabled:cursor-not-allowed disabled:opacity-60;
-}
-
+/* ---- Card image buttons ---- */
+.card-button-left,
 .card-button-right {
-  @apply w-full overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 transition hover:border-amber-400 disabled:cursor-not-allowed disabled:opacity-60;
+  width: 100%;
+  border: 2px solid black;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+  transition: border-color 0.08s, box-shadow 0.08s;
+}
+
+.card-button-left:hover:not(:disabled),
+.card-button-right:hover:not(:disabled) {
+  border-color: #f5c518;
+  box-shadow: 0 0 0 2px #f5c518;
+}
+
+.card-button-left:disabled,
+.card-button-right:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
 }
 
 .card-image {
-  @apply mx-auto max-h-[420px] w-full object-contain;
+  width: 100%;
+  max-height: 380px;
+  object-fit: contain;
+  display: block;
 }
 
+/* ---- Card meta ---- */
 .card-set {
-  @apply mt-4 text-lg text-slate-300;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-.card-price-left {
-  @apply mt-2 text-3xl font-bold text-emerald-300;
-}
-
+.card-price-left,
 .card-price-right {
-  @apply mt-2 text-3xl font-bold text-amber-300 tabular-nums;
+  font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  font-size: 2.2rem;
+  color: black;
+  letter-spacing: 0.06em;
+  margin-top: 0.15rem;
 }
