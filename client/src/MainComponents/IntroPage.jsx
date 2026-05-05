@@ -59,7 +59,7 @@ function HomePage() {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col items-center justify-center gap-10 py-8">
+      <main className="flex-1 flex flex-col items-center justify-start gap-6 pt-4 pb-8">
 
         {/* Logo + MTG badge */}
         <div className="flex items-end">
@@ -78,14 +78,19 @@ function HomePage() {
         </button>
 
         {/* Info panels */}
-        <div className="flex gap-4">
-          <div className="info-box w-72 min-h-36 p-4">
-            <h3 className="info-title">How to Play</h3>
-            <p className="info-body">Guess which of the two cards is more expensive, guess right and continue, guess wrong and you lose!</p>
+        <div className="flex flex-col gap-2" style={{width: 'fit-content'}}>
+          <div className="flex gap-4">
+            <div className="info-box w-72 min-h-36 p-4">
+              <h3 className="info-title">How to Play</h3>
+              <p className="info-body">Guess which of the two cards is more expensive, guess right and continue, guess wrong and you lose!</p>
+            </div>
+            <div className="info-box w-52.75 min-h-36 p-4">
+              <h3 className="info-title">Your art here!</h3>
+              <p className="info-body">Submit your art to ___! New winners chosen every week</p>
+            </div>
           </div>
-          <div className="info-box w-40 min-h-36 p-4">
-            <h3 className="info-title">Your art here!</h3>
-            <p className="info-body">Submit your art to ___! New winners chosen every week</p>
+          <div className="info-box fan-content-notice p-1 px-3 w-full">
+            <p className="info-body">Over Under MTG is unofficial Fan Content permitted under the Fan Content Policy. Not approved/endorsed by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the Coast LLC.</p>
           </div>
         </div>
 

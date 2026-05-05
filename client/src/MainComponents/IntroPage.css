@@ -234,3 +234,13 @@
   font-size: 0.75rem;
   color: #555;
 }
+
+.fan-content-notice {
+  width: 100%;
+  max-width: 580px;
+}
+
+.fan-content-notice .info-body {
+  color: #555;
+  font-size: 0.5rem;
+}
