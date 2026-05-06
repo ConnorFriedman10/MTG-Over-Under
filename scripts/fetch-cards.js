@@ -19,7 +19,7 @@ const fetchPage = async (url) => {
 const main = async () => {
   console.log('Fetching cards from Scryfall...');
   const cards = [];
-  let url = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(SCRYFALL_QUERY)}`;
+  let url = `https://api.scryfall.com/cards/search?q=${encodeURIComponent(SCRYFALL_QUERY)}&order=random`;
   let page = 0;
 
   while (url && page < TARGET_PAGES) {
