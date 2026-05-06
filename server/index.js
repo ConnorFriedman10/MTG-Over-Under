@@ -66,8 +66,6 @@ refillPool();
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:5173';
 
-app.use('/api/', rateLimit({ windowMs: 60_000, max: 30 }));
-
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -77,6 +75,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use('/api/', rateLimit({ windowMs: 60_000, max: 30 }));
 
 app.get('/', (req, res) => {
   res.send('API is up');
