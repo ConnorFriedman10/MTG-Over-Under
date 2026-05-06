@@ -2,54 +2,49 @@ const express = require('express');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MIN_PRICE = 0.20;
+const SCRYFALL_QUERY = '-t:basic usd>0.2 game:paper finish:nonfoil';
+const POOL_SIZE = 20;
+const SCRYFALL_INTERVAL_MS = 500; // max 2 Scryfall calls/sec
 
-let cardCatalog = [];
-let catalogReady = false;
+const cardPool = [];
+let refillScheduled = false;
 
-const mapCard = (data) => ({
-  id: data.id,
-  name: data.name,
-  set: data.set_name,
-  image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
-  artist: data.artist,
-  scryfallUri: data.scryfall_uri,
-  price: data.prices?.usd
-});
-
-const loadCatalog = async () => {
-  try {
-    // Fetch the bulk data index to get the current download URL
-    const indexRes = await fetch('https://api.scryfall.com/bulk-data/default-cards', {
-      headers: { 'User-Agent': 'MTG-Over-Under/1.0', 'Accept': 'application/json' }
-    });
-    const { download_uri } = await indexRes.json();
-
-    const dataRes = await fetch(download_uri, {
-      headers: { 'User-Agent': 'MTG-Over-Under/1.0' }
-    });
-    const cards = await dataRes.json();
-
-    cardCatalog = cards.filter(c =>
-      c.games?.includes('paper') &&
-      c.finishes?.includes('nonfoil') &&
-      !c.type_line?.includes('Basic') &&
-      Number(c.prices?.usd) > MIN_PRICE &&
-      (c.image_uris?.normal || c.card_faces?.[0]?.image_uris?.normal)
-    ).map(mapCard);
-
-    catalogReady = true;
-    console.log(`Catalog loaded: ${cardCatalog.length} cards`);
-
-    // Refresh daily
-    setTimeout(loadCatalog, 24 * 60 * 60 * 1000);
-  } catch (err) {
-    console.error('Failed to load catalog, retrying in 60s:', err.message);
-    setTimeout(loadCatalog, 60_000);
-  }
+const fetchCardFromScryfall = async () => {
+  const response = await fetch(`https://api.scryfall.com/cards/random?q=${encodeURIComponent(SCRYFALL_QUERY)}`, {
+    headers: { 'User-Agent': 'MTG-Over-Under/1.0', 'Accept': 'application/json' }
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.details || 'Scryfall error');
+  const price = data.prices?.usd;
+  if (!price || Number(price) <= 0) throw new Error('Card has no valid USD price');
+  return {
+    id: data.id,
+    name: data.name,
+    set: data.set_name,
+    image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
+    artist: data.artist,
+    scryfallUri: data.scryfall_uri,
+    price
+  };
 };
 
-loadCatalog();
+// Refills the pool one card at a time, 500ms apart, so we never burst Scryfall
+const scheduleRefill = () => {
+  if (refillScheduled || cardPool.length >= POOL_SIZE) return;
+  refillScheduled = true;
+  setTimeout(async () => {
+    refillScheduled = false;
+    if (cardPool.length < POOL_SIZE) {
+      try {
+        const card = await fetchCardFromScryfall();
+        cardPool.push(card);
+      } catch (_) {}
+      scheduleRefill();
+    }
+  }, SCRYFALL_INTERVAL_MS);
+};
+
+scheduleRefill();
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:5173';
 
@@ -61,18 +56,23 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.send('API is up');
-});
+app.get('/', (req, res) => res.send('API is up'));
 
-app.get('/api/cards/random', (req, res) => {
-  if (!catalogReady) {
-    return res.status(503).json({ error: 'Server is still loading, please try again in a moment.' });
+app.get('/api/cards/random', async (req, res) => {
+  try {
+    if (cardPool.length > 0) {
+      const card = cardPool.shift();
+      scheduleRefill();
+      return res.json(card);
+    }
+
+    // Pool empty — fetch directly but kick off background refill
+    const card = await fetchCardFromScryfall();
+    scheduleRefill();
+    return res.json(card);
+  } catch (err) {
+    res.status(500).json({ error: 'Could not fetch a card, please try again.' });
   }
-  const card = cardCatalog[Math.floor(Math.random() * cardCatalog.length)];
-  res.json(card);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
