@@ -17,6 +17,8 @@ const fetchCardFromScryfall = async () => {
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.details || 'Scryfall error');
+  const price = data.prices?.usd;
+  if (!price || Number(price) <= 0) throw new Error('Card has no valid USD price');
   return {
     id: data.id,
     name: data.name,
@@ -24,7 +26,7 @@ const fetchCardFromScryfall = async () => {
     image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
     artist: data.artist,
     scryfallUri: data.scryfall_uri,
-    price: data.prices.usd
+    price
   };
 };
 
