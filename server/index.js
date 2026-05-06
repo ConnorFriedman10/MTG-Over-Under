@@ -3,7 +3,7 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SCRYFALL_QUERY = '-t:basic usd>0.2 game:paper -finish:foil';
+const SCRYFALL_QUERY = '-t:basic usd>0.2 game:paper finish:nonfoil';
 const POOL_SIZE = 10;
 
 const cardPool = [];
