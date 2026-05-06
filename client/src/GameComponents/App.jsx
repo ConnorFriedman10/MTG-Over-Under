@@ -27,22 +27,14 @@ function App() {
   }, []);
 
   const fetchRandomCard = async () => {
-    const res = await fetch(`https://api.scryfall.com/cards/random?q=${encodeURIComponent('-t:basic usd>0.01 game:paper -finish:foil')}`, {
-      headers: { 'User-Agent': 'MTG-Over-Under/1.0', 'Accept': 'application/json' }
-    });
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cards/random`);
     const data = await res.json();
 
     if (!res.ok) {
       throw new Error(data.error || 'Failed to fetch card');
     }
 
-    return {
-      id: data.id,
-      name: data.name,
-      set: data.set_name,
-      image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
-      price: data.prices.usd
-    };
+    return data;
   }
 
   const revealPrice = (price) => {
