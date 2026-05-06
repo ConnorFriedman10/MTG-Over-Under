@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import EndGamePopup from './EndGamePopup.jsx'
 import { isTopScore as checkIsTopScore, submitScore } from '../leaderboard.js'
@@ -18,6 +18,7 @@ function App() {
   const [revealedPrice, setRevealedPrice] = useState('???');
   const [isOpen, setIsOpen] = useState(false);
   const [isTopScoreQualified, setIsTopScoreQualified] = useState(false);
+  const cardCacheRef = useRef(null);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const formatPrice = (price) => Number(price).toFixed(2);
@@ -27,15 +28,13 @@ function App() {
   }, []);
 
   const fetchRandomCard = async () => {
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-    const res = await fetch(`${apiUrl}/api/cards/random`);
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || 'Failed to fetch card');
+    if (!cardCacheRef.current) {
+      const res = await fetch('/cards.json');
+      if (!res.ok) throw new Error('Failed to load card data');
+      cardCacheRef.current = await res.json();
     }
-
-    return data;
+    const cards = cardCacheRef.current;
+    return cards[Math.floor(Math.random() * cards.length)];
   }
 
   const revealPrice = (price) => {
