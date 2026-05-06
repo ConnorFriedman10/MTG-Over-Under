@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 const PORT = 3000;
-const SCRYFALL_QUERY = '-t:basic usd>0.01 game:paper';
+const SCRYFALL_QUERY = '-t:basic usd>0.01 game:paper -finish:foil';
 const POOL_SIZE = 10;
 
 const cardPool = [];
