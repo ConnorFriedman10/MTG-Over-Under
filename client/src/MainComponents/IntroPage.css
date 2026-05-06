@@ -301,3 +301,17 @@
   text-decoration: none;
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .scoreboard-panel {
+    max-height: 240px;
+  }
+
+  .logo-box {
+    height: 180px;
+  }
+
+  .mtg-badge-box {
+    min-height: 90px;
+  }
+}

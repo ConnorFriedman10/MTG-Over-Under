@@ -32,10 +32,10 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="flex gap-8 p-8 flex-1 text-left">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-8 p-4 md:p-8 flex-1 text-left">
 
       {/* LEFT — paper taped to the wall */}
-      <aside className="scoreboard-panel w-64 shrink-0 flex flex-col pt-10 px-4 pb-6">
+      <aside className="scoreboard-panel w-full md:w-64 md:shrink-0 flex flex-col pt-10 px-4 pb-6 order-last md:order-first">
         <h2 className="leaderboard-title">Top 50 Scores</h2>
         <div className="leaderboard-scroll flex-1 overflow-y-auto mt-1">
           {loadingScores ? (
@@ -59,16 +59,16 @@ function HomePage() {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col items-center justify-start gap-6 pt-4 pb-8">
+      <main className="flex-1 flex flex-col items-center justify-start gap-4 md:gap-6 pt-4 pb-8 order-first md:order-none">
 
         {/* Logo + MTG badge */}
         <div className="flex items-end">
-          <div className="logo-box w-64 shrink-0">
+          <div className="logo-box w-52 md:w-64 shrink-0">
             <div className="logo-box-inner">
               <img src={overUnderLogo} alt="Over/Under logo" />
             </div>
           </div>
-          <div className="mtg-badge-box w-44 shrink-0 flex items-center justify-center">
+          <div className="mtg-badge-box w-36 md:w-44 shrink-0 flex items-center justify-center">
             <span className="mtg-text">MTG</span>
           </div>
         </div>
@@ -78,13 +78,13 @@ function HomePage() {
         </button>
 
         {/* Info panels */}
-        <div className="flex flex-col gap-2" style={{width: 'fit-content'}}>
-          <div className="flex gap-4">
-            <div className="info-box w-72 min-h-36 p-4">
+        <div className="flex flex-col gap-2 w-full max-w-xl md:w-auto md:max-w-none" style={{width: 'fit-content'}}>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <div className="info-box w-full sm:w-72 min-h-36 p-4">
               <h3 className="info-title">How to Play</h3>
               <p className="info-body">Guess which of the two cards is more expensive, guess right and continue, guess wrong and you lose!</p>
             </div>
-            <div className="info-box w-52.75 min-h-36 p-4">
+            <div className="info-box w-full sm:w-52 min-h-36 p-4">
               <h3 className="info-title">Your art here!</h3>
               <p className="info-body">Submit your art <a className = "art-link" href="https://forms.gle/tcZCLXSnCBdtk61TA">here</a>. New winners chosen every week!</p>
             </div>
