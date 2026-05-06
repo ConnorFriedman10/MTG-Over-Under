@@ -294,3 +294,10 @@
   color: #1a1a1a;
   letter-spacing: 0.07em;
 }
+
+.art-link {
+  color: blueviolet;
+  background-color: transparent;
+  text-decoration: none;
+  font-weight: bold;
+}

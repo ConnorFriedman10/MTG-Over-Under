@@ -86,7 +86,7 @@ function HomePage() {
             </div>
             <div className="info-box w-52.75 min-h-36 p-4">
               <h3 className="info-title">Your art here!</h3>
-              <p className="info-body">Submit your art to ___. New winners chosen every week!</p>
+              <p className="info-body">Submit your art <a className = "art-link" href="https://forms.gle/tcZCLXSnCBdtk61TA">here</a>. New winners chosen every week!</p>
             </div>
           </div>
           <div className="info-box fan-content-notice p-1 px-3 w-full">
