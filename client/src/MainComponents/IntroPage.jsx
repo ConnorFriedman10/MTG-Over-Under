@@ -95,6 +95,17 @@ function HomePage() {
         </div>
 
       </main>
+
+      <a
+        href="https://ko-fi.com/mtgoverunderdev"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="kofi-flyer"
+      >
+        <span className="kofi-flyer-label">support me on Ko-Fi!</span>
+        <span className="kofi-flyer-cta">☕ Ko-fi</span>
+      </a>
+
     </div>
   );
 }

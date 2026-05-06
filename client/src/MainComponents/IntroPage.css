@@ -244,3 +244,53 @@
   color: #555;
   font-size: 0.5rem;
 }
+
+/* ---- Ko-fi flyer — fixed corner note ---- */
+.kofi-flyer {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: white;
+  padding: 0.55rem 0.85rem 0.45rem;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.18);
+  transform: rotate(1.5deg);
+  z-index: 100;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  transition: transform 0.1s;
+}
+
+.kofi-flyer::before {
+  content: '';
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 44px;
+  height: 18px;
+  background: rgba(210, 198, 165, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.kofi-flyer:hover {
+  transform: rotate(1.5deg) translateY(-3px);
+}
+
+.kofi-flyer-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #888;
+  text-transform: lowercase;
+  letter-spacing: 0.03em;
+}
+
+.kofi-flyer-cta {
+  font-family: 'Bebas Neue', Impact, 'Arial Black', sans-serif;
+  font-size: 1rem;
+  color: #1a1a1a;
+  letter-spacing: 0.07em;
+}
