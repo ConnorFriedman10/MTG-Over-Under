@@ -36,7 +36,13 @@ function App() {
       throw new Error(data.error || 'Failed to fetch card');
     }
 
-    return data;
+    return {
+      id: data.id,
+      name: data.name,
+      set: data.set_name,
+      image: data.image_uris?.normal || data.card_faces?.[0]?.image_uris?.normal,
+      price: data.prices.usd
+    };
   }
 
   const revealPrice = (price) => {
