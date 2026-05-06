@@ -59,15 +59,20 @@ const refillPool = () => {
 
 refillPool();
 
-//Route
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'http://localhost:5173';
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
 });
 
-//mtg stuff
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || 'http://localhost:5173');
-  next();
+app.get('/', (req, res) => {
+  res.send('API is up');
 });
 
 app.get('/api/cards/random', async (req, res) => {
@@ -85,10 +90,6 @@ app.get('/api/cards/random', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Server error while fetching Scryfall.' });
   }
-});
-
-app.get('/', (req, res) => {
-  res.send('API is up');
 });
 
 app.listen(PORT, () => {

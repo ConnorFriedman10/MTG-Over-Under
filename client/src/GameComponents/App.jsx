@@ -27,7 +27,8 @@ function App() {
   }, []);
 
   const fetchRandomCard = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cards/random`);
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const res = await fetch(`${apiUrl}/api/cards/random`);
     const data = await res.json();
 
     if (!res.ok) {
