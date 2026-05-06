@@ -66,7 +66,7 @@ app.get('/', (req, res) => {
 
 //mtg stuff
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN || 'http://localhost:5173');
   next();
 });
 

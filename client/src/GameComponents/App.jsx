@@ -27,7 +27,9 @@ function App() {
   }, []);
 
   const fetchRandomCard = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/cards/random`);
+    const res = await fetch(`https://api.scryfall.com/cards/random?q=${encodeURIComponent('-t:basic usd>0.01 game:paper -finish:foil')}`, {
+      headers: { 'User-Agent': 'MTG-Over-Under/1.0', 'Accept': 'application/json' }
+    });
     const data = await res.json();
 
     if (!res.ok) {
