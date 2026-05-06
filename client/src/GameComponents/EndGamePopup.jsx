@@ -33,6 +33,7 @@ function EndGamePopup({ isOpen, title, finalScore, isTopScore, onSubmitScore, on
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [nameError, setNameError] = useState('');
   const [avatarSearch, setAvatarSearch] = useState('');
   const [avatarResults, setAvatarResults] = useState([]);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
@@ -78,11 +79,14 @@ function EndGamePopup({ isOpen, title, finalScore, isTopScore, onSubmitScore, on
   const handleSubmit = async () => {
     if (!name.trim() || submitting) return;
     setSubmitting(true);
+    setNameError('');
     try {
       await onSubmitScore(name.trim(), finalScore, selectedAvatar?.image || randomManaPip());
       setSubmitted(true);
-    } catch {
-      // submission failed silently; user can retry
+    } catch (err) {
+      if (err.message === 'inappropriate_name') {
+        setNameError('Please choose an appropriate name.');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -144,6 +148,7 @@ function EndGamePopup({ isOpen, title, finalScore, isTopScore, onSubmitScore, on
               maxLength={20}
               className="endgame-popup-input endgame-popup-name-input"
             />
+            {nameError && <p className="endgame-popup-name-error">{nameError}</p>}
 
             <div className="endgame-popup-actions">
               <button

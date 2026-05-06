@@ -117,6 +117,13 @@
   text-align: center;
 }
 
+.endgame-popup-name-error {
+  color: #c0392b;
+  font-size: 0.8rem;
+  margin: 4px 0 0;
+  text-align: center;
+}
+
 /* Dropdown */
 .endgame-popup-dropdown {
   position: absolute;
