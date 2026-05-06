@@ -7,6 +7,27 @@ import leoProfanity from 'leo-profanity';
 
 leoProfanity.loadDictionary();
 
+// Normalize common leet-speak substitutions before profanity check.
+// Two passes handle ambiguous chars like '!' which can stand for 'i' or 'e'.
+function normalizeLeet(str, bangAsE = false) {
+  return str
+    .toLowerCase()
+    .replace(/[@4]/g, 'a')
+    .replace(bangAsE ? /[3!]/g : /3/g, 'e')
+    .replace(bangAsE ? /[1|]/g : /[1|!]/g, 'i')
+    .replace(/0/g, 'o')
+    .replace(/[$5]/g, 's')
+    .replace(/[7+]/g, 't');
+}
+
+function isProfane(name) {
+  return (
+    leoProfanity.check(name) ||
+    leoProfanity.check(normalizeLeet(name)) ||
+    leoProfanity.check(normalizeLeet(name, true))
+  );
+}
+
 const LEADERBOARD_SIZE = 50;
 const leaderboardCol = () => collection(db, 'leaderboard');
 
@@ -23,7 +44,7 @@ export async function isTopScore(score) {
 }
 
 export async function submitScore(name, score, avatarUrl = null) {
-  if (leoProfanity.check(name)) throw new Error('inappropriate_name');
+  if (isProfane(name)) throw new Error('inappropriate_name');
   await addDoc(leaderboardCol(), { name, score, avatarUrl, timestamp: serverTimestamp() });
 
   const q = query(leaderboardCol(), orderBy('score', 'desc'));

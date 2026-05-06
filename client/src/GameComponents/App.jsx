@@ -74,10 +74,15 @@ function App() {
     setError('');
 
     try {
-      const [firstCard, secondCard] = await Promise.all([
+      const [firstCard, initialSecond] = await Promise.all([
         fetchRandomCard(),
         fetchRandomCard()
       ]);
+
+      let secondCard = initialSecond;
+      while (Math.abs(firstCard.price - secondCard.price) < 0.05) {
+        secondCard = await fetchRandomCard();
+      }
 
       setCard1(firstCard);
       setCard2(secondCard);
@@ -108,7 +113,10 @@ function App() {
       await delay(PRICE_REVEAL_PAUSE_MS);
 
       if (pickedCorrectly) {
-        const nextCard = await nextCardPromise;
+        let nextCard = await nextCardPromise;
+        while (Math.abs(nextCard.price - card2.price) < 0.05) {
+          nextCard = await fetchRandomCard();
+        }
         setScore((currentScore) => currentScore + 1);
         setCard1(card2);
         setCard2(nextCard);
