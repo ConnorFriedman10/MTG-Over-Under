@@ -26,7 +26,6 @@ export async function submitScore(name, score, avatarUrl = null) {
   if (leoProfanity.check(name)) throw new Error('inappropriate_name');
   await addDoc(leaderboardCol(), { name, score, avatarUrl, timestamp: serverTimestamp() });
 
-  // Prune anything beyond top 50
   const q = query(leaderboardCol(), orderBy('score', 'desc'));
   const snapshot = await getDocs(q);
   const excess = snapshot.docs.slice(LEADERBOARD_SIZE);
