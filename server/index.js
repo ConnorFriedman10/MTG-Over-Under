@@ -1,5 +1,4 @@
 const express = require('express');
-const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -76,7 +75,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/', rateLimit({ windowMs: 60_000, max: 30 }));
 
 app.get('/', (req, res) => {
   res.send('API is up');
