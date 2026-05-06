@@ -54,9 +54,11 @@ const fetchSpecificCardArt = async (q) => {
 const refillPool = () => {
   const needed = POOL_SIZE - cardPool.length;
   for (let i = 0; i < needed; i++) {
-    fetchCardFromScryfall()
-      .then(card => cardPool.push(card))
-      .catch(() => {}); // silently retry on next refill
+    setTimeout(() => {
+      fetchCardFromScryfall()
+        .then(card => cardPool.push(card))
+        .catch(() => {});
+    }, i * 150);
   }
 };
 
