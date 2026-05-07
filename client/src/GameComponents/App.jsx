@@ -80,7 +80,7 @@ function App() {
       ]);
 
       let secondCard = initialSecond;
-      while (Math.abs(firstCard.price - secondCard.price) < 0.05) {
+      while (Math.abs(firstCard.price - secondCard.price) < 0.03) {
         secondCard = await fetchRandomCard();
       }
 
@@ -114,7 +114,7 @@ function App() {
 
       if (pickedCorrectly) {
         let nextCard = await nextCardPromise;
-        while (Math.abs(nextCard.price - card2.price) < 0.05) {
+        while (Math.abs(nextCard.price - card2.price) < 0.03) {
           nextCard = await fetchRandomCard();
         }
         setScore((currentScore) => currentScore + 1);
