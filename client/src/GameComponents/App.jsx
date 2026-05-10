@@ -7,6 +7,7 @@ import heroLogo from '../assets/finaloverunderlogo.png'
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
 
+//add future card pool selection
 function App() {
   const [card1, setCard1] = useState(null);
   const [card2, setCard2] = useState(null);
