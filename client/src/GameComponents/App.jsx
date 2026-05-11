@@ -8,6 +8,7 @@ const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
 
 //add future card pool selection
+//add sliders on the top right, make sure to update card base
 function App() {
   const [card1, setCard1] = useState(null);
   const [card2, setCard2] = useState(null);
