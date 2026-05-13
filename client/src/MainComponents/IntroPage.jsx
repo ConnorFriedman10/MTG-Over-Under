@@ -20,6 +20,8 @@ function HomePage() {
   const [scores, setScores] = useState([]);
   const [loadingScores, setLoadingScores] = useState(true);
   const [scoresError, setScoresError] = useState('');
+  const [priceLimit, setPriceLimit] = useState(1000);
+  const [priceGap, setPriceGap] = useState(100);
 
   useEffect(() => {
     getTopScores()
