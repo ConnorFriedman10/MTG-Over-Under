@@ -128,7 +128,7 @@ function App() {
         setCard2(nextCard);
         setRevealedPrice('???');
       } else {
-        if (score > maxScore) {
+        if (score > maxScore && priceDifference == 0) {
           localStorage.setItem('maxScore', score);
           setMaxScore(score);
         }
