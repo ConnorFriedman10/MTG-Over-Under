@@ -5,6 +5,7 @@
 /* Tape strip mixin — shared across pinned elements */
 .app-logo-panel::before,
 .app-score-panel::before,
+.app-home-button::before,
 .card-panel::before,
 .card-panel::after {
   content: '';
@@ -109,6 +110,40 @@
   letter-spacing: 0.06em;
 }
 
+/* ---- Home button ---- */
+.app-home-button {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: black;
+  background: white;
+  border: 2px solid black;
+  position: relative;
+  padding: 0.45rem 1.4rem;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.18);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 5rem;
+  transform: rotate(-0.6deg);
+  transition: background 0.08s, transform 0.08s;
+}
+
+.app-home-button::before {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+}
+
+.app-home-button:hover {
+  background: #f5c518;
+}
+
+.app-home-button:active {
+  transform: rotate(-0.6deg) translateY(2px);
+}
+
 /* ---- Error message ---- */
 .error-msg {
   font-family: 'Courier New', monospace;
@@ -208,4 +243,35 @@
   color: black;
   letter-spacing: 0.06em;
   margin-top: 0.15rem;
+}
+
+@media (max-width: 768px) {
+  .app-root {
+    padding: 1rem 1rem 2rem;
+  }
+
+  .app-header {
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .app-logo-panel {
+    margin-top: 1.25rem;
+  }
+
+  .app-score-panel {
+    margin-top: 1.75rem;
+    padding: 0.4rem 1rem;
+    gap: 1.25rem;
+  }
+
+  .app-home-button {
+    margin-top: 1.75rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .card-grid {
+    gap: 1.5rem;
+  }
 }
