@@ -3,7 +3,7 @@ import './App.css'
 import EndGamePopup from './EndGamePopup.jsx'
 import { isTopScore as checkIsTopScore, submitScore } from '../leaderboard.js'
 import heroLogo from '../assets/finaloverunderlogo.png'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
@@ -21,7 +21,8 @@ function App() {
   const [revealedPrice, setRevealedPrice] = useState('???');
   const [isOpen, setIsOpen] = useState(false);
   const [isTopScoreQualified, setIsTopScoreQualified] = useState(false);
-  const [priceDifference, setPriceDifference] = useState(0);
+  const location = useLocation();
+  const [priceDifference, setPriceDifference] = useState(location.state?.priceDifference ?? 0);
   const cardCacheRef = useRef(null);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -85,7 +86,7 @@ function App() {
       ]);
 
       let secondCard = initialSecond;
-      while (Math.abs(firstCard.price - secondCard.price) < 0.03) {
+      while (Math.abs(firstCard.price - secondCard.price) < priceDifference) {
         secondCard = await fetchRandomCard();
       }
 
@@ -119,7 +120,7 @@ function App() {
 
       if (pickedCorrectly) {
         let nextCard = await nextCardPromise;
-        while (Math.abs(nextCard.price - card2.price) < 0.03) {
+        while (Math.abs(nextCard.price - card2.price) < priceDifference) {
           nextCard = await fetchRandomCard();
         }
         setScore((currentScore) => currentScore + 1);
@@ -133,7 +134,9 @@ function App() {
         }
         const qualified = await checkIsTopScore(score).catch(() => false);
         setFinalScore(score);
-        setIsTopScoreQualified(qualified);
+        if (priceDifference == 0) {
+          setIsTopScoreQualified(qualified);
+        }
         setScore(0);
         setIsOpen(true);
       }

@@ -20,6 +20,7 @@ function HomePage() {
   const [scores, setScores] = useState([]);
   const [loadingScores, setLoadingScores] = useState(true);
   const [scoresError, setScoresError] = useState('');
+  const [priceDifference, setPriceDifference] = useState('0');
 
   useEffect(() => {
     getTopScores()
@@ -73,7 +74,13 @@ function HomePage() {
           </div>
         </div>
 
-        <button onClick={() => navigate('/game')} className="start-btn">
+        <button
+          onClick={() => {
+            const parsed = Number(priceDifference);
+            navigate('/game', { state: { priceDifference: Number.isFinite(parsed) ? Math.max(0, parsed) : 0 } });
+          }}
+          className="start-btn"
+        >
           Start Playing
         </button>
 
@@ -84,9 +91,24 @@ function HomePage() {
               <h3 className="info-title">How to Play</h3>
               <p className="info-body">Guess which of the two cards is more expensive, guess right and continue, guess wrong and you lose!</p>
             </div>
-            <div className="info-box w-full sm:w-52 min-h-36 p-4">
-              <h3 className="info-title">Your art here!</h3>
-              <p className="info-body">Submit your art <a className = "art-link" href="https://forms.gle/tcZCLXSnCBdtk61TA">here</a>. New winners chosen every week!</p>
+            <div className="info-box price-diff-box w-full sm:w-52 min-h-36 p-4">
+              <h3 className="info-title">Min Price Difference</h3>
+              <p className="info-body">Set the minimum price gap (in $) between the two cards. Note: price diffs above 0 won't appear on the leaderboard</p>
+              <label className="price-diff-label">
+                $
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  value={priceDifference}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === '' || /^\d*\.?\d*$/.test(val)) {
+                      setPriceDifference(val);
+                    }
+                  }}
+                  className="price-diff-input"
+                />
+              </label>
             </div>
           </div>
           <div className="info-box fan-content-notice p-1 px-3 w-full">
