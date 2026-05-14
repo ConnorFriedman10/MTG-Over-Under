@@ -222,16 +222,18 @@
 }
 
 .info-title {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 0.9rem;
-  color: black;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.3rem;
+  font-family: 'Permanent Marker', 'Bebas Neue', Impact, sans-serif;
+  font-size: 1.5rem;
+  color: #c0392b;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+  transform: rotate(-2deg);
+  display: inline-block;
 }
 
 .info-body {
   font-family: 'Courier New', monospace;
-  font-size: 0.75rem;
+  font-size: 1 rem;
   color: #555;
 }
 
@@ -303,7 +305,10 @@
 }
 
 .price-diff-box .info-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: 0.75rem;
+  color: black;
+  transform: none;
 }
 
 .price-diff-box .info-body {
