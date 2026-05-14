@@ -12,7 +12,7 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "firebase": "^12.12.1",
-    "leo-profanity": "^1.6.2",
+    "leo-profanity": "^1.9.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2"

@@ -3,6 +3,7 @@ import './App.css'
 import EndGamePopup from './EndGamePopup.jsx'
 import { isTopScore as checkIsTopScore, submitScore } from '../leaderboard.js'
 import heroLogo from '../assets/finaloverunderlogo.png'
+import { useNavigate } from 'react-router-dom';
 
 const PRICE_REVEAL_DURATION_MS = 900;
 const PRICE_REVEAL_PAUSE_MS = 500;
@@ -20,10 +21,12 @@ function App() {
   const [revealedPrice, setRevealedPrice] = useState('???');
   const [isOpen, setIsOpen] = useState(false);
   const [isTopScoreQualified, setIsTopScoreQualified] = useState(false);
+  const [priceDifference, setPriceDifference] = useState(0);
   const cardCacheRef = useRef(null);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const formatPrice = (price) => Number(price).toFixed(2);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadInitialCards();
@@ -152,6 +155,10 @@ function App() {
     await submitScore(name, score, avatarUrl);
   };
 
+  const returnHome = () => {
+    navigate('/');
+  }
+
   return (
     <div className="app-root">
       <div className="app-header">
@@ -164,6 +171,7 @@ function App() {
           <span className="app-score-current">Score: {score}</span>
           <span className="app-score-best">Best: {maxScore}</span>
         </div>
+        <button className="app-home-button" onClick={returnHome}>Home</button>
       </div>
 
       {error && <p className="error-msg">{error}</p>}
