@@ -247,31 +247,70 @@
 
 @media (max-width: 768px) {
   .app-root {
-    padding: 1rem 1rem 2rem;
+    padding: 0.5rem 0.5rem 1rem;
   }
 
   .app-header {
-    gap: 1rem;
+    gap: 0.6rem;
     justify-content: center;
+    margin-bottom: 0;
   }
 
   .app-logo-panel {
-    margin-top: 1.25rem;
+    margin-top: 0.75rem;
+    width: 90px;
+    height: 80px;
   }
 
   .app-score-panel {
-    margin-top: 1.75rem;
-    padding: 0.4rem 1rem;
-    gap: 1.25rem;
+    margin-top: 1rem;
+    padding: 0.3rem 0.7rem;
+    gap: 0.75rem;
+  }
+
+  .app-score-current,
+  .app-score-best {
+    font-size: 0.72rem;
   }
 
   .app-home-button {
-    margin-top: 1.75rem;
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
+    margin-top: 1rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.72rem;
   }
 
   .card-grid {
-    gap: 1.5rem;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+    padding: 0 0.25rem;
+  }
+
+  .card-panel {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    padding: 1rem 0.5rem 0.6rem;
+  }
+
+  .card-name {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.1;
+  }
+
+  .card-image {
+    max-height: 55vh;
+    width: 100%;
+    height: auto;
+  }
+
+  .card-set {
+    font-size: 0.55rem;
+    margin-top: 0.3rem;
+  }
+
+  .card-price-left,
+  .card-price-right {
+    font-size: 1.3rem;
   }
 }
