@@ -88,7 +88,7 @@ function HomePage() {
         <div className="flex flex-col gap-2 w-full max-w-xl md:w-auto md:max-w-none" style={{width: 'fit-content'}}>
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="info-box w-full sm:w-72 min-h-36 p-4">
-              <h3 className="info-title">How to Play</h3>
+              <h3 className="info-title">How To Play MTG Over Under!</h3>
               <p className="info-body">Guess which of the two cards is more expensive, guess right and continue, guess wrong and you lose!</p>
             </div>
             <div className="info-box price-diff-box w-full sm:w-52 min-h-36 p-4">
