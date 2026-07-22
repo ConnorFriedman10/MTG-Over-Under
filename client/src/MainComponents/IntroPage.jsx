@@ -37,7 +37,7 @@ function HomePage() {
 
       {/* LEFT — paper taped to the wall */}
       <aside className="scoreboard-panel w-full md:w-64 md:shrink-0 flex flex-col pt-10 px-4 pb-6 order-last md:order-first">
-        <h2 className="leaderboard-title">Top 50 Scores</h2>
+        <h2 className="leaderboard-title">Top 50 Scores!</h2>
         <div className="leaderboard-scroll flex-1 overflow-y-auto mt-1">
           {loadingScores ? (
             <p className="leaderboard-status">Loading scores...</p>
